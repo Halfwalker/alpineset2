@@ -1,0 +1,62 @@
+#!/usr/bin/env pip-compile -q --allow-unsafe --no-annotate --output-file=requirements.txt
+# Avoid using --generate-hashes as it breaks pip install from tox.
+# Avoid --no-annotate as it may produce non relative paths
+
+# Sample run
+# docker run --rm -it --network molecule -e GH_USER=${GH_USER} -e GH_TOKEN=${GH_TOKEN} -e DRONE_REPO_NAME=$(basename ${PWD}) -e MOLECULE_DISTRO=ubuntu2204 -e DOCKER_HOST=unix:///var/run/docker.sock -v "$(pwd)":"${PWD}" -w "${PWD}" -v /var/run/docker.sock:/var/run/docker.sock quay.io/halfwalker/toolset2 bash
+
+ansible
+### ansible-compat==3.0.2
+# ansible-lint having problems https://stackoverflow.com/questions/76465558/ansible-lint-failing-with-attributeerror-str-object-has-no-attribute-resolv
+# For now stay below v6.x.x
+ansible-lint  # this also brings ansible
+
+# Downgrade to avoid deprecation error for license_file
+# PyYAML==5.3.1
+PyYAML
+
+pytest-testinfra
+
+# molecule 4.0.4 fails with goss - complains about number of parameters - use 3.6.1
+
+# Latest ansible molecule ansible-lint having trouble together - several issues about it
+# This seems to be the right combination that works ...
+#   ansible-compat 3.0.2
+#   molecule 4.0.4
+
+# molecule==4.0.4
+# ### molecule-azure
+# molecule-containers
+# molecule-docker
+# ### # molecule-ec2
+# ### # molecule-gce
+# molecule-podman
+# molecule-vagrant
+
+# For molecule 6.x.x - plugins provide the above now
+# For now can't go above 2.28.2 for requests
+requests
+molecule
+### molecule-plugins[containers] # provides docker/podman, picks whatever backend is available) MOLECULE_CONTAINERS_BACKEND=podman,docker
+molecule-plugins[docker]
+molecule-plugins[podman]
+molecule-plugins[vagrant]
+### molecule-plugins[azure]
+
+# molecule-hetznercloud
+molecule-libvirt
+
+### Archived projects
+### molecule-lxd
+### molecule-goss
+### molecule-openstack
+### molecule-digitalocean
+### molecule-inspec
+
+# openstacksdk
+# python-openstackclient
+
+# ruamel.yaml.clib>=0.2.2  # performance
+ruamel.yaml.clib
+yamllint>=1.26.0
+
