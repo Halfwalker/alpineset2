@@ -6,4 +6,6 @@ alias testit='pytest --ansible-inventory /root/.cache/molecule/$(basename ${PWD}
 
 echo "----------------------------------------------------------"
 echo "Use 'testit' alias to run pytest against running container"
+echo "MOLECULE_INVENTORY_FILE = ${MOLECULE_INVENTORY_FILE}"
+echo "podman playbooks in /opt/toolset/lib/python3.11/site-packages/molecule_plugins/podman/playbooks"
 echo "----------------------------------------------------------"

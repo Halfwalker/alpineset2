@@ -26,7 +26,7 @@ pip3 list --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 inst
 pip install pip-compile-multi && \
 pip-compile --allow-unsafe --no-annotate --output-file=/tmp/requirements.txt /tmp/requirements.in && \
 python3 -m pip install ${PIP_INSTALL_ARGS} -r /tmp/requirements.txt && \
-python3 -m pip install -U ansible-lint urllib3 ruamel.yaml.clib
+python3 -m pip install ${PIP_INSTALL_ARGS} ansible-lint urllib3 ruamel.yaml.clib
 
 
 # Final stage
@@ -71,6 +71,7 @@ echo -e "podman:1:999\npodman:1001:64535" > /etc/subgid;
 COPY containers.conf /etc/containers/containers.conf
 COPY storage.conf /etc/containers/storage.conf
 COPY podman-containers.conf /home/podman/.config/containers/containers.conf
+COPY versions.sh /etc/bash/0-versions.sh
 COPY bash_aliases.sh /etc/bash/molecule.sh
 COPY bash_aliases.sh /home/podman/.bash_aliases
 
