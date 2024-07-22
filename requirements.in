@@ -60,3 +60,5 @@ molecule-libvirt
 ruamel.yaml.clib
 yamllint>=1.26.0
 
+# For showing how out-of-date we are
+pip-check

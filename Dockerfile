@@ -88,9 +88,9 @@ ENV _CONTAINERS_USERNS_CONFIGURED=""
 
 RUN set -ex && echo "========================================================================" && \
 python3 -m pip check && \
+ansible --version && \
 molecule --version && \
 yamllint --version && \
-ansible --version && \
 ansible-lint --version && \
 docker --version && \
 podman --version && \
